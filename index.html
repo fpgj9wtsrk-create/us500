@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>US500 SSS</title>
+<style>
+:root{--bg:#0a1017;--panel:#111922;--line:#1f2a36;--fg:#eef2f6;--mut:#7f8c99;--call:#3ddc97;--callbg:#0e3b2c;--put:#ff6b6b;--putbg:#2a1416;--chopbg:#2a3440;--chop:#c5d0da;--wall:#f2c94c}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font-family:-apple-system,"SF Arabic",Tahoma,sans-serif}
+body{display:flex;flex-direction:column;padding:env(safe-area-inset-top) max(10px,env(safe-area-inset-right)) env(safe-area-inset-bottom) max(10px,env(safe-area-inset-left))}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 0}
+.pill{font-weight:700;font-size:20px;padding:6px 16px;border-radius:999px;background:var(--chopbg);color:var(--chop)}
+.pill.call{background:var(--callbg);color:var(--call)}.pill.put{background:var(--putbg);color:var(--put)}
+.lv{display:flex;flex-wrap:wrap;gap:6px;font-size:15px}
+.lv span{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:4px 10px;font-variant-numeric:tabular-nums}
+.lv b{font-family:ui-monospace,Menlo,monospace;direction:ltr;display:inline-block}
+.t{color:var(--call)}.put .t{color:var(--put)}.w{color:var(--wall)}
+#chart{flex:1;min-height:420px;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--mut);font-size:12px;padding:8px 0}
+.foot input{width:96px;background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:4px 6px;font-size:13px;direction:ltr}
+.foot button{background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:4px 10px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="top"><span class="pill" id="pill">…</span><div class="lv" id="lv"></div></div>
+<div id="chart"></div>
+<div class="foot">
+  <span id="upd"></span>
+  <span>سعر US500 الحين <input id="bp" type="number" inputmode="decimal" placeholder="مثل 7760"><button id="ap">ضبط</button></span>
+</div>
+<script src="https://s3.tradingview.com/tv.js"></script>
+<script>
+new TradingView.widget({container_id:"chart",autosize:true,symbol:"PEPPERSTONE:US500",interval:"5",timezone:"Asia/Riyadh",theme:"dark",style:"1",locale:"ar_AE",hide_side_toolbar:false,allow_symbol_change:false,save_image:false});
+var D=null,off=0;try{off=+localStorage.getItem("off")||0}catch(e){}
+function r(x){return x==null?"—":Math.round(x+off)}
+function show(){if(!D)return;var n=D.now||{dir:"chop"},p=document.getElementById("pill"),lv=document.getElementById("lv");
+ p.className="pill "+n.dir;p.textContent=n.dir==="call"?"🟢 كول":n.dir==="put"?"🔴 بوت":"⚪ لا تدخل";
+ lv.className="lv "+n.dir;
+ lv.innerHTML=n.dir==="chop"?"<span>انتظر التحديث الجاي</span>":
+  "<span>دخول <b>"+r(D.price)+"</b></span><span>أهداف <b class='t'>"+(n.targets||[]).map(r).join(" · ")+"</b></span><span>وقف <b class='w'>"+r(n.wall)+"</b></span>"+(n.bump?"<span>🚧 مطب <b>"+r(n.bump)+"</b></span>":"");
+ document.getElementById("upd").textContent="آخر تحديث: "+D.updated;}
+function load(){fetch("us500.json?t="+Date.now()).then(function(x){return x.json()}).then(function(j){D=j;show()}).catch(function(){})}
+document.getElementById("ap").onclick=function(){var v=parseFloat(document.getElementById("bp").value);if(!D||isNaN(v))return;off=v-D.price;try{localStorage.setItem("off",off)}catch(e){}show()};
+load();setInterval(load,120000);
+</script>
+</body>
+</html>
