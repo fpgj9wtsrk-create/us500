@@ -21,6 +21,7 @@ body{display:flex;flex-direction:column;padding:env(safe-area-inset-top) max(10p
 .lv b{font-family:ui-monospace,Menlo,monospace;direction:ltr;display:inline-block}
 .t{color:var(--call)}.put .t{color:var(--put)}.w{color:var(--wall)}
 .sc{font-size:18px;font-weight:700;border-radius:12px;padding:10px 14px;margin-bottom:8px}.sc.ok{background:#0e3b2c;color:#3ddc97}.sc.no{background:#3a1216;color:#ff6b6b;border:2px solid #ff6b6b}[hidden]{display:none!important}
+.pv{font-size:16px;border:1px solid #6cb6ff;color:#cfe6ff;background:#0f2236;border-radius:12px;padding:8px 14px;margin-bottom:8px}.pv b{font-family:ui-monospace,Menlo,monospace;color:#6cb6ff}
 .warn{color:var(--warn);font-size:14px;padding:0 2px 6px}
 #chart{flex:1;min-height:420px;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
 .foot{color:var(--mut);font-size:12px;padding:8px 0;text-align:center}
@@ -30,6 +31,7 @@ body{display:flex;flex-direction:column;padding:env(safe-area-inset-top) max(10p
 <div class="tabs" id="tabs"></div>
 <div class="top"><span class="pill" id="pill">…</span><div class="lv" id="lv"></div></div>
 <div class="sc" id="sc" hidden></div>
+<div class="pv" id="pv" hidden></div>
 <div class="warn" id="warn"></div>
 <div id="chart"></div>
 <div class="foot" id="upd"></div>
@@ -47,6 +49,8 @@ function pick(s){cur=s;var e=(P.ranking||[]).filter(function(x){return x.sym===s
  if(e.dir==="chop"){lv.innerHTML="<span>"+(e.note||"لا تدخل")+"</span>";}
  else{var ent=e.level||e.wall;
   lv.innerHTML="<span>دخول "+(e.dir==="call"?"فوق":"تحت")+" <b>"+ent+"</b></span><span>أهداف <b class='t'>"+(e.targets||[]).join(" · ")+"</b></span><span>وقف <b class='w'>"+e.wall+"</b></span>"+(e.contract?"<span>"+e.contract+"</span>":"");}
+ var pv=document.getElementById("pv");
+ if(e.dir!=="chop"&&e.pivot){pv.innerHTML="📍 المحورية <b>"+e.pivot+"</b> — ادخل بس إذا افتتح "+(e.dir==="call"?"<u>فوقها</u>":"<u>تحتها</u>");pv.hidden=false}else pv.hidden=true;
  var sc=document.getElementById("sc");
  if(e.dir!=="chop"&&e.trend){var ok=e.trend==="with";sc.className="sc "+(ok?"ok":"no");sc.innerHTML=ok?"📈 المتوسط 600 معك · نسبة النجاح <b>"+e.score+"/10</b>":"⛔ المتوسط 600 مو معك — لا تدخل <b>("+(e.score||"?")+"/10)</b>";sc.hidden=false;}else{sc.hidden=true;}
  var ws=[];if(e.breakout==="against")ws.push("اليومي عكس الإشارة");if(e.bolt==="against")ws.push("الماكد و RSI ضد");if(e.bump)ws.push("🚧 مطب عند "+e.bump);if(e.near)ws.push("جدار قريب");
