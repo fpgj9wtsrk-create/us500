@@ -11,6 +11,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font-family:
 body{display:flex;flex-direction:column;padding:env(safe-area-inset-top) max(10px,env(safe-area-inset-right)) env(safe-area-inset-bottom) max(10px,env(safe-area-inset-left))}
 .tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 0 4px;-webkit-overflow-scrolling:touch}
 .tab{flex:none;border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:10px;padding:6px 10px;font-size:14px;font-family:ui-monospace,Menlo,monospace}
+.tab small{display:block;font-size:11px;font-family:-apple-system,Tahoma,sans-serif;margin-top:2px}.tab small.g{color:#3ddc97}.tab small.r{color:#ff6b6b}.tab.on small.g{color:#0e7a52}
 .tab.call{border-color:#1d5a42;color:var(--call)}.tab.put{border-color:#5a2328;color:var(--put)}.tab.on{background:var(--fg);color:var(--bg)}
 .top{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:8px 0}
 .pill{font-weight:700;font-size:19px;padding:6px 14px;border-radius:999px;background:var(--chopbg);color:var(--chop)}
@@ -53,7 +54,8 @@ function pick(s){cur=s;var e=(P.ranking||[]).filter(function(x){return x.sym===s
  chart(s);}
 function load(){fetch("plan.json?t="+Date.now()).then(function(x){return x.json()}).then(function(j){var first=!P;P=j;
  document.getElementById("upd").textContent="خطة "+j.day_label+" · جهزت "+j.generated+" · ليست توصية";
- var t=document.getElementById("tabs");t.innerHTML=(j.ranking||[]).map(function(e){return '<button class="tab '+e.dir+'" data-s="'+e.sym+'">'+e.sym+'</button>'}).join("");
+ var rk=(j.ranking||[]).slice().sort(function(a,b){function k(e){return e.dir==="chop"?-100:(e.trend==="with"?50:0)+(+e.score||0)*2+(e.bump?-20:0)+(+e.ratio||0)/10}return k(b)-k(a)});j.ranking=rk;
+ var t=document.getElementById("tabs");t.innerHTML=rk.map(function(e){var tag=e.dir==="chop"?"<small>⚪</small>":e.trend==="with"?"<small class='g'>"+e.score+"/10</small>":e.trend?"<small class='r'>⛔</small>":"";return '<button class="tab '+e.dir+'" data-s="'+e.sym+'">'+e.sym+tag+'</button>'}).join("");
  t.querySelectorAll(".tab").forEach(function(b){b.onclick=function(){pick(b.dataset.s)}});
  var s=(first||!cur)?((j.ranking||[])[0]||{}).sym:cur; if(s)pick(s); else document.getElementById("pill").textContent="ما فيه خطة اليوم";
 }).catch(function(){})}
