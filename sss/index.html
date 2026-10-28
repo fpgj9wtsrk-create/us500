@@ -37,8 +37,8 @@ body{display:flex;flex-direction:column;padding:env(safe-area-inset-top) max(10p
 <div class="foot" id="upd"></div>
 <script src="https://s3.tradingview.com/tv.js"></script>
 <script>
-var P=null,cur=null,TV={SPX:"SP:SPX"};
-function tvs(s){return TV[s]||("NASDAQ:"+s)}
+var P=null,cur=null,TV={SPX:"PEPPERSTONE:US500"};
+function tvs(s){return TV[s]||("BATS:"+s)}
 function chart(s){document.getElementById("chart").innerHTML="";new TradingView.widget({container_id:"chart",autosize:true,symbol:tvs(s),interval:"5",timezone:"Asia/Riyadh",theme:"dark",style:"1",locale:"ar_AE",allow_symbol_change:false,save_image:false});}
 function pick(s){cur=s;var e=(P.ranking||[]).filter(function(x){return x.sym===s})[0];if(!e)return;
  document.querySelectorAll(".tab").forEach(function(t){t.classList.toggle("on",t.dataset.s===s)});
@@ -47,8 +47,8 @@ function pick(s){cur=s;var e=(P.ranking||[]).filter(function(x){return x.sym===s
  p.className="pill "+e.dir;p.textContent=(e.dir==="call"?"🟢 كول":e.dir==="put"?"🔴 بوت":"⚪ لا تدخل")+(e.strong?" قوي":"")+badge;
  lv.className="lv "+e.dir;
  if(e.dir==="chop"){lv.innerHTML="<span>"+(e.note||"لا تدخل")+"</span>";}
- else{var ent=e.level||e.wall;
-  lv.innerHTML="<span>دخول "+(e.dir==="call"?"فوق":"تحت")+" <b>"+ent+"</b></span><span>أهداف <b class='t'>"+(e.targets||[]).join(" · ")+"</b></span><span>وقف <b class='w'>"+e.wall+"</b></span>"+(e.contract?"<span>"+e.contract+"</span>":"");}
+ else{var ent=e.level?(" و "+e.level):"";
+  lv.innerHTML="<span>دخول "+(e.dir==="call"?"فوق":"تحت")+" الافتتاح"+(ent?"<b>"+ent+"</b>":"")+"</span><span>أهداف <b class='t'>"+(e.targets||[]).join(" · ")+"</b></span><span>وقف <b class='w'>"+e.wall+"</b></span>"+(e.contract?"<span>"+e.contract+"</span>":"");}
  var pv=document.getElementById("pv");
  if(e.dir!=="chop"&&e.pivot){pv.innerHTML="📍 المحورية <b>"+e.pivot+"</b> — ادخل بس إذا افتتح "+(e.dir==="call"?"<u>فوقها</u>":"<u>تحتها</u>");pv.hidden=false}else pv.hidden=true;
  var sc=document.getElementById("sc");
