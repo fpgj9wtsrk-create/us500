@@ -38,7 +38,7 @@ function show(){if(!D)return;var n=D.now||{dir:"chop"},p=document.getElementById
  p.className="pill "+n.dir;p.textContent=n.dir==="call"?"🟢 كول":n.dir==="put"?"🔴 بوت":"⚪ لا تدخل";
  lv.className="lv "+n.dir;
  lv.innerHTML=n.dir==="chop"?"<span>انتظر التحديث الجاي</span>":
-  "<span>دخول <b>"+r(D.price)+"</b></span><span>أهداف <b class='t'>"+(n.targets||[]).map(r).join(" · ")+"</b></span><span>وقف <b class='w'>"+r(n.wall)+"</b></span>"+(n.bump?"<span>🚧 مطب <b>"+r(n.bump)+"</b></span>":"");
+  "<span>سعر الخطة <b>"+r(D.price)+"</b></span><span>أهداف <b class='t'>"+(n.targets||[]).map(r).join(" · ")+"</b></span><span>وقف <b class='w'>"+r(n.wall)+"</b></span>"+(n.bump?"<span>🚧 مطب <b>"+r(n.bump)+"</b></span>":"");
  document.getElementById("upd").textContent="آخر تحديث: "+D.updated;}
 function load(){fetch("us500.json?t="+Date.now()).then(function(x){return x.json()}).then(function(j){D=j;show()}).catch(function(){})}
 document.getElementById("ap").onclick=function(){var v=parseFloat(document.getElementById("bp").value);if(!D||isNaN(v))return;off=v-D.price;try{localStorage.setItem("off",off)}catch(e){}show()};
