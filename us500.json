@@ -1,88 +1,64 @@
 {
- "exp": "2026-10-28",
+ "exp": "2026-10-29",
  "oi_date": "2026-10-27",
- "updated": "الأربعاء 2:53 م",
- "price": 7751,
+ "updated": "الخميس 1:03 ص",
+ "price": 7738,
  "now": {
   "dir": "chop",
-  "ratio": 1.05,
+  "ratio": 1.21,
   "strong": false
  },
  "zones": [
   {
-   "dir": "chop",
-   "frm": 7633,
-   "to": 7713
-  },
-  {
-   "dir": "call",
-   "frm": 7718,
-   "to": 7733
+   "dir": "put",
+   "frm": 7623,
+   "to": 7693
   },
   {
    "dir": "chop",
-   "frm": 7739,
+   "frm": 7698,
    "to": 7764
   },
   {
    "dir": "call",
    "frm": 7769,
-   "to": 7864
+   "to": 7849
   }
  ],
  "magnets": [
   {
-   "lvl": 7640,
-   "oi": 8543,
+   "lvl": 7620,
+   "oi": 15853,
    "side": "تحت"
   },
   {
    "lvl": 7690,
-   "oi": 7120,
+   "oi": 3132,
    "side": "تحت"
   },
   {
-   "lvl": 7840,
-   "oi": 6086,
-   "side": "فوق"
-  },
-  {
-   "lvl": 7750,
-   "oi": 5792,
+   "lvl": 7720,
+   "oi": 2383,
    "side": "تحت"
   },
   {
    "lvl": 7710,
-   "oi": 5496,
+   "oi": 2137,
+   "side": "تحت"
+  },
+  {
+   "lvl": 7670,
+   "oi": 2026,
    "side": "تحت"
   }
  ],
  "runs": [
   {
-   "label": "الأربعاء 5:15 ص",
+   "label": "الخميس 1:03 ص",
    "price": 7738,
    "now": {
-    "dir": "call",
-    "ratio": 1.52,
-    "strong": false,
-    "targets": [
-     7740,
-     7750,
-     7760
-    ],
-    "wall": 7690,
-    "weak": false,
-    "level": 7710,
-    "bump": null,
-    "bump_oi": null
-   }
-  },
-  {
-   "label": "الأربعاء 2:53 م",
-   "price": 7751,
-   "now": {
     "dir": "chop",
-    "ratio": 1.05,
+    "ratio": 1.21,
     "strong": false
    }
   }
