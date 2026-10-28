@@ -23,7 +23,7 @@ body{display:flex;flex-direction:column;padding:env(safe-area-inset-top) max(10p
 </style>
 </head>
 <body>
-<div class="top"><span class="pill" id="pill">…</span><div class="lv" id="lv"></div></div>
+<div class="top"><span class="pill" id="pill">…</span><div class="lv" id="lv"></div><button id="cp" style="background:#0e3b2c;color:#3ddc97;border:1px solid #1d5a42;border-radius:10px;padding:6px 12px;font-size:14px">📋 انسخ كود الخطوط</button></div>
 <div id="chart"></div>
 <div class="foot">
   <span id="upd"></span>
@@ -42,6 +42,12 @@ function show(){if(!D)return;var n=D.now||{dir:"chop"},p=document.getElementById
  document.getElementById("upd").textContent="آخر تحديث: "+D.updated;}
 function load(){fetch("us500.json?t="+Date.now()).then(function(x){return x.json()}).then(function(j){D=j;show()}).catch(function(){})}
 document.getElementById("ap").onclick=function(){var v=parseFloat(document.getElementById("bp").value);if(!D||isNaN(v))return;off=v-D.price;try{localStorage.setItem("off",off)}catch(e){}show()};
+function code(){var n=D.now||{dir:"chop"};var c="D|"+D.exp;
+ if(n.dir==="chop")return c;
+ return c+";US500|"+(n.dir==="call"?"c":"p")+"|"+(n.strong?1:0)+"|"+(+n.ratio).toFixed(2)+"|"+(n.targets||[]).map(r).join(",")+"|"+r(D.price)+"|"+r(n.wall)+"|0|";}
+document.getElementById("cp").onclick=function(){if(!D)return;var b=this,t=code();
+ function ok(){b.textContent="✓ انسخ — الصقه في SSS PRO";setTimeout(function(){b.textContent="📋 انسخ كود الخطوط"},2500)}
+ if(navigator.clipboard)navigator.clipboard.writeText(t).then(ok,function(){prompt("انسخ:",t)});else prompt("انسخ:",t)};
 load();setInterval(load,120000);
 </script>
 </body>
