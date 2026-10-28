@@ -44,7 +44,7 @@ function load(){fetch("us500.json?t="+Date.now()).then(function(x){return x.json
 document.getElementById("ap").onclick=function(){var v=parseFloat(document.getElementById("bp").value);if(!D||isNaN(v))return;off=v-D.price;try{localStorage.setItem("off",off)}catch(e){}show()};
 function code(){var n=D.now||{dir:"chop"};var c="D|"+D.exp;
  if(n.dir==="chop")return c;
- return c+";US500|"+(n.dir==="call"?"c":"p")+"|"+(n.strong?1:0)+"|"+(+n.ratio).toFixed(2)+"|"+(n.targets||[]).map(r).join(",")+"|"+r(D.price)+"|"+r(n.wall)+"|0|";}
+ return c+";US500|"+(n.dir==="call"?"c":"p")+"|"+(n.strong?1:0)+"|"+(+n.ratio).toFixed(2)+"|"+(n.targets||[]).map(r).join(",")+"|"+(n.level?r(n.level):"")+"|"+r(n.wall)+"|0|";}
 document.getElementById("cp").onclick=function(){if(!D)return;var b=this,t=code();
  function ok(){b.textContent="✓ انسخ — الصقه في SSS PRO";setTimeout(function(){b.textContent="📋 انسخ كود الخطوط"},2500)}
  if(navigator.clipboard)navigator.clipboard.writeText(t).then(ok,function(){prompt("انسخ:",t)});else prompt("انسخ:",t)};
