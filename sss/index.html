@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>SSS</title>
+<style>
+:root{--bg:#0a1017;--panel:#111922;--line:#1f2a36;--fg:#eef2f6;--mut:#7f8c99;--call:#3ddc97;--callbg:#0e3b2c;--put:#ff6b6b;--putbg:#2a1416;--chopbg:#2a3440;--chop:#c5d0da;--wall:#f2c94c;--warn:#ffb454}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font-family:-apple-system,"SF Arabic",Tahoma,sans-serif}
+body{display:flex;flex-direction:column;padding:env(safe-area-inset-top) max(10px,env(safe-area-inset-right)) env(safe-area-inset-bottom) max(10px,env(safe-area-inset-left))}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 0 4px;-webkit-overflow-scrolling:touch}
+.tab{flex:none;border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:10px;padding:6px 10px;font-size:14px;font-family:ui-monospace,Menlo,monospace}
+.tab.call{border-color:#1d5a42;color:var(--call)}.tab.put{border-color:#5a2328;color:var(--put)}.tab.on{background:var(--fg);color:var(--bg)}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:8px 0}
+.pill{font-weight:700;font-size:19px;padding:6px 14px;border-radius:999px;background:var(--chopbg);color:var(--chop)}
+.pill.call{background:var(--callbg);color:var(--call)}.pill.put{background:var(--putbg);color:var(--put)}
+.lv{display:flex;flex-wrap:wrap;gap:6px;font-size:15px}
+.lv span{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:4px 10px}
+.lv b{font-family:ui-monospace,Menlo,monospace;direction:ltr;display:inline-block}
+.t{color:var(--call)}.put .t{color:var(--put)}.w{color:var(--wall)}
+.warn{color:var(--warn);font-size:14px;padding:0 2px 6px}
+#chart{flex:1;min-height:420px;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+.foot{color:var(--mut);font-size:12px;padding:8px 0;text-align:center}
+</style>
+</head>
+<body>
+<div class="tabs" id="tabs"></div>
+<div class="top"><span class="pill" id="pill">…</span><div class="lv" id="lv"></div></div>
+<div class="warn" id="warn"></div>
+<div id="chart"></div>
+<div class="foot" id="upd"></div>
+<script src="https://s3.tradingview.com/tv.js"></script>
+<script>
+var P=null,cur=null,TV={SPX:"SP:SPX"};
+function tvs(s){return TV[s]||("NASDAQ:"+s)}
+function chart(s){document.getElementById("chart").innerHTML="";new TradingView.widget({container_id:"chart",autosize:true,symbol:tvs(s),interval:"5",timezone:"Asia/Riyadh",theme:"dark",style:"1",locale:"ar_AE",allow_symbol_change:false,save_image:false});}
+function pick(s){cur=s;var e=(P.ranking||[]).filter(function(x){return x.sym===s})[0];if(!e)return;
+ document.querySelectorAll(".tab").forEach(function(t){t.classList.toggle("on",t.dataset.s===s)});
+ var p=document.getElementById("pill"),lv=document.getElementById("lv"),w=document.getElementById("warn");
+ var badge=(e.star?" ⭐":"")+(e.breakout==="with"?" 🔥":"")+(e.bolt==="with"?" ⚡":"");
+ p.className="pill "+e.dir;p.textContent=(e.dir==="call"?"🟢 كول":e.dir==="put"?"🔴 بوت":"⚪ لا تدخل")+(e.strong?" قوي":"")+badge;
+ lv.className="lv "+e.dir;
+ if(e.dir==="chop"){lv.innerHTML="<span>"+(e.note||"لا تدخل")+"</span>";}
+ else{var ent=e.level||e.wall;
+  lv.innerHTML="<span>دخول "+(e.dir==="call"?"فوق":"تحت")+" <b>"+ent+"</b></span><span>أهداف <b class='t'>"+(e.targets||[]).join(" · ")+"</b></span><span>وقف <b class='w'>"+e.wall+"</b></span>"+(e.contract?"<span>"+e.contract+"</span>":"");}
+ var ws=[];if(e.breakout==="against")ws.push("اليومي عكس الإشارة");if(e.bolt==="against")ws.push("الماكد و RSI ضد");if(e.bump)ws.push("🚧 مطب عند "+e.bump);if(e.near)ws.push("جدار قريب");
+ w.textContent=ws.length?"⚠️ الأفضل لا تدخل: "+ws.join(" · "):(e.dir!=="chop"?"✅ الطريق سالك":"");
+ chart(s);}
+function load(){fetch("plan.json?t="+Date.now()).then(function(x){return x.json()}).then(function(j){var first=!P;P=j;
+ document.getElementById("upd").textContent="خطة "+j.day_label+" · جهزت "+j.generated+" · ليست توصية";
+ var t=document.getElementById("tabs");t.innerHTML=(j.ranking||[]).map(function(e){return '<button class="tab '+e.dir+'" data-s="'+e.sym+'">'+e.sym+'</button>'}).join("");
+ t.querySelectorAll(".tab").forEach(function(b){b.onclick=function(){pick(b.dataset.s)}});
+ var s=(first||!cur)?((j.ranking||[])[0]||{}).sym:cur; if(s)pick(s); else document.getElementById("pill").textContent="ما فيه خطة اليوم";
+}).catch(function(){})}
+load();setInterval(function(){fetch("plan.json?t="+Date.now()).then(function(x){return x.json()}).then(function(j){if(!P||j.generated!==P.generated||j.date!==P.date)load()})},120000);
+</script>
+</body>
+</html>
