@@ -1,65 +1,100 @@
 {
- "exp": "2026-10-29",
- "oi_date": "2026-10-27",
- "updated": "الخميس 1:03 ص",
- "price": 7738,
+ "exp": "2026-10-30",
+ "oi_date": "2026-10-28",
+ "updated": "الجمعة 1:03 ص",
+ "price": 7689,
  "now": {
-  "dir": "chop",
-  "ratio": 1.21,
-  "strong": false
+  "dir": "put",
+  "ratio": 2.01,
+  "strong": true,
+  "targets": [
+   7690,
+   7660,
+   7640
+  ],
+  "wall": 7740,
+  "weak": false,
+  "level": 7700,
+  "bump": null,
+  "bump_oi": null
  },
  "zones": [
   {
    "dir": "put",
-   "frm": 7623,
-   "to": 7693
+   "frm": 7573,
+   "to": 7663
   },
   {
    "dir": "chop",
-   "frm": 7698,
+   "frm": 7668,
+   "to": 7688
+  },
+  {
+   "dir": "put",
+   "frm": 7693,
+   "to": 7728
+  },
+  {
+   "dir": "chop",
+   "frm": 7733,
+   "to": 7733
+  },
+  {
+   "dir": "put",
+   "frm": 7739,
    "to": 7764
   },
   {
    "dir": "call",
    "frm": 7769,
-   "to": 7849
+   "to": 7804
   }
  ],
  "magnets": [
   {
-   "lvl": 7620,
-   "oi": 15853,
+   "lvl": 7540,
+   "oi": 73120,
    "side": "تحت"
   },
   {
    "lvl": 7690,
-   "oi": 3132,
+   "oi": 51944,
    "side": "تحت"
   },
   {
-   "lvl": 7720,
-   "oi": 2383,
+   "lvl": 7590,
+   "oi": 41443,
    "side": "تحت"
   },
   {
-   "lvl": 7710,
-   "oi": 2137,
+   "lvl": 7640,
+   "oi": 38124,
    "side": "تحت"
   },
   {
-   "lvl": 7670,
-   "oi": 2026,
-   "side": "تحت"
+   "lvl": 7740,
+   "oi": 36718,
+   "side": "فوق"
   }
  ],
  "runs": [
   {
-   "label": "الخميس 1:03 ص",
-   "price": 7738,
+   "label": "الجمعة 1:03 ص",
+   "price": 7689,
    "now": {
-    "dir": "chop",
-    "ratio": 1.21,
-    "strong": false
+    "dir": "put",
+    "ratio": 2.01,
+    "strong": true,
+    "targets": [
+     7690,
+     7660,
+     7640
+    ],
+    "wall": 7740,
+    "weak": false,
+    "level": 7700,
+    "bump": null,
+    "bump_oi": null
    }
   }
  ]
