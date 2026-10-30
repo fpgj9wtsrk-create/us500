@@ -91,7 +91,7 @@
    "score": "6",
    "contract": "بوت 280",
    "note": null,
-   "pivot": "284.89"
+   "pivot": "284.17"
   },
   {
    "sym": "AMZN",
@@ -120,7 +120,7 @@
    "score": "6",
    "contract": "بوت 225",
    "note": null,
-   "pivot": "245.85"
+   "pivot": "244.72"
   },
   {
    "sym": "SPX",
@@ -178,7 +178,7 @@
    "score": "3",
    "contract": "كول 527.5",
    "note": null,
-   "pivot": "531.35"
+   "pivot": "530.33"
   },
   {
    "sym": "TSLA",
@@ -207,7 +207,7 @@
    "score": "4",
    "contract": "كول 395",
    "note": null,
-   "pivot": "403.86"
+   "pivot": "403.59"
   },
   {
    "sym": "NVDA",
@@ -236,7 +236,7 @@
    "score": "3",
    "contract": "كول 207.5",
    "note": null,
-   "pivot": "213.76"
+   "pivot": "213.69"
   },
   {
    "sym": "AAPL",
@@ -265,7 +265,7 @@
    "score": "4",
    "contract": "كول 345",
    "note": null,
-   "pivot": "349.12"
+   "pivot": "349.21"
   },
   {
    "sym": "AVGO",
@@ -294,7 +294,7 @@
    "score": "3",
    "contract": "كول 330",
    "note": null,
-   "pivot": "343.70"
+   "pivot": "343.32"
   },
   {
    "sym": "AMD",
@@ -323,7 +323,7 @@
    "score": "3",
    "contract": "كول 512.5",
    "note": null,
-   "pivot": "567.43"
+   "pivot": "567.36"
   },
   {
    "sym": "MU",
