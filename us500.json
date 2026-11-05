@@ -1,113 +1,73 @@
 {
- "exp": "2026-11-05",
- "oi_date": "2026-11-03",
- "updated": "الخميس 2:03 ص",
- "price": 7714,
+ "exp": "2026-11-06",
+ "oi_date": "2026-11-04",
+ "updated": "الجمعة 2:06 ص",
+ "price": 7349,
  "now": {
-  "dir": "call",
-  "ratio": 1.54,
-  "strong": false,
+  "dir": "put",
+  "ratio": 37.8,
+  "strong": true,
   "targets": [
-   7720,
-   7740,
-   7790
+   7335,
+   7285,
+   7275
   ],
-  "wall": 7640,
-  "weak": false,
-  "level": 7690,
+  "wall": 7385,
+  "weak": true,
+  "level": 7355,
   "bump": null,
   "bump_oi": null
  },
  "zones": [
   {
    "dir": "put",
-   "frm": 7598,
-   "to": 7608
-  },
-  {
-   "dir": "chop",
-   "frm": 7613,
-   "to": 7613
-  },
-  {
-   "dir": "call",
-   "frm": 7618,
-   "to": 7638
-  },
-  {
-   "dir": "chop",
-   "frm": 7643,
-   "to": 7658
-  },
-  {
-   "dir": "call",
-   "frm": 7663,
-   "to": 7688
-  },
-  {
-   "dir": "put",
-   "frm": 7693,
-   "to": 7708
-  },
-  {
-   "dir": "call",
-   "frm": 7713,
-   "to": 7739
-  },
-  {
-   "dir": "chop",
-   "frm": 7744,
-   "to": 7759
-  },
-  {
-   "dir": "call",
-   "frm": 7764,
-   "to": 7829
+   "frm": 7241,
+   "to": 7457
   }
  ],
  "magnets": [
   {
-   "lvl": 7840,
-   "oi": 15149,
+   "lvl": 7385,
+   "oi": 24988,
    "side": "فوق"
   },
   {
-   "lvl": 7690,
-   "oi": 9108,
+   "lvl": 7435,
+   "oi": 24870,
+   "side": "فوق"
+  },
+  {
+   "lvl": 7285,
+   "oi": 15704,
    "side": "تحت"
   },
   {
-   "lvl": 7640,
-   "oi": 6372,
+   "lvl": 7485,
+   "oi": 15523,
+   "side": "فوق"
+  },
+  {
+   "lvl": 7235,
+   "oi": 14706,
    "side": "تحت"
-  },
-  {
-   "lvl": 7740,
-   "oi": 6304,
-   "side": "فوق"
-  },
-  {
-   "lvl": 7790,
-   "oi": 5158,
-   "side": "فوق"
   }
  ],
  "runs": [
   {
-   "label": "الخميس 2:03 ص",
-   "price": 7714,
+   "label": "الجمعة 2:06 ص",
+   "price": 7349,
    "now": {
-    "dir": "call",
-    "ratio": 1.54,
-    "strong": false,
+    "dir": "put",
+    "ratio": 37.8,
+    "strong": true,
     "targets": [
-     7720,
-     7740,
-     7790
+     7335,
+     7285,
+     7275
     ],
-    "wall": 7640,
-    "weak": false,
-    "level": 7690,
+    "wall": 7385,
+    "weak": true,
+    "level": 7355,
     "bump": null,
     "bump_oi": null
    }
